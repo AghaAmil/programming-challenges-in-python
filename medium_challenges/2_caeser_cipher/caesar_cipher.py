@@ -29,46 +29,87 @@ ALPHABET = [
     "z",
 ]
 
+# Simple decorative elements
+SEPARATOR = "=" * 50
 
-def caesar_chiper(original_text, shift_amount, option):
+
+def caesar_cipher(original_text, shift_amount, option):
+    """
+    Encrypt or decrypt text using Caesar cipher.
+
+    Args:
+        original_text: The message to transform
+        shift_amount: Number of positions to shift
+        option: 'encode' or 'decode'
+
+    Returns:
+        The transformed text
+    """
     output_text = ""
 
-    for letter in original_text:
-        if option == "decode":
-            shift_amount *= -1
+    if option == "decode":
+        shift_amount *= -1
 
+    for letter in original_text:
         if letter in ALPHABET:
             shifted_index = ALPHABET.index(letter) + shift_amount
-            # if the shifted index in out of the range of english alphabet letters
             shifted_index %= len(ALPHABET)
-            shifted_alphabet = ALPHABET[shifted_index]
-            output_text += shifted_alphabet
+            output_text += ALPHABET[shifted_index]
         else:
             output_text += letter
 
-    print(f"\nHere is the {option}d result:\n{output_text}")
+    return output_text
 
 
-def program_runner():
-    direction = input("\nType 'encode' to encrypt your message, type 'decode' to decrypt your message:\n").lower()
+def get_user_inputs():
+    """Get all inputs from user with basic validation."""
+    direction = input("\nType 'encode' to encrypt, 'decode' to decrypt:\n").lower()
     message = input("\nType your message:\n").lower()
-    shift = int(input("\nType the shift number:\n"))
 
-    caesar_chiper(original_text=message, shift_amount=shift, option=direction)
+    # Simple error handling for shift input
+    try:
+        shift = int(input("\nType the shift number:\n"))
+    except ValueError:
+        print("Invalid number. Using shift of 3 as default.")
+        shift = 3
+
+    return direction, message, shift
 
 
-print(LOGO)
-program_runner()
+def display_result(result, option):
+    """Display the result in a formatted way."""
+    print(f"\n{SEPARATOR}")
+    print(f"Here is the {option}d result:")
+    print(f"{SEPARATOR}")
+    print(f"{result}")
+    print(f"{SEPARATOR}")
 
-play_again = True
 
-while play_again:
-    go_again = input("\nType 'yes' if you want to go again. Otherwise type 'no': ").lower()
+def main():
+    """Main program function."""
+    # Display logo
+    print(LOGO)
+    print("\nWelcome to Caesar Cipher Program!")
 
-    if go_again == "yes":
-        program_runner()
-    elif go_again == "no":
-        print("\n*** Hope you enjoy Caesar Chipher Program ***\n")
-        play_again = False
-    else:
-        print("Invalid Input")
+    # First run
+    direction, message, shift = get_user_inputs()
+    result = caesar_cipher(message, shift, direction)
+    display_result(result, direction)
+
+    # Continue loop
+    while True:
+        go_again = input("\nType 'yes' to go again, 'no' to exit: ").lower()
+
+        if go_again == "yes":
+            direction, message, shift = get_user_inputs()
+            result = caesar_cipher(message, shift, direction)
+            display_result(result, direction)
+        elif go_again == "no":
+            print("\n*** Thank you for using Caesar Cipher Program ***\n")
+            break
+        else:
+            print("Invalid input. Please type 'yes' or 'no'.")
+
+
+if __name__ == "__main__":
+    main()
