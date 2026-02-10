@@ -3,3 +3,9 @@
 
 # interpreter file
 .venv
+
+# vscode config file
+.vscode
+
+# python related files
+.ruff_cache
