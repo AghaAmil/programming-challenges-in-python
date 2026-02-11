@@ -62,7 +62,7 @@ def caesar_cipher(original_text, shift_amount, option):
 
 
 def get_user_inputs():
-    """Get all inputs from user with basic validation."""
+    # Get all inputs from user with basic validation
     direction = input("\nType 'encode' to encrypt, 'decode' to decrypt:\n").lower()
     message = input("\nType your message:\n").lower()
 
@@ -77,7 +77,7 @@ def get_user_inputs():
 
 
 def display_result(result, option):
-    """Display the result in a formatted way."""
+    # Display the result in a formatted way
     print(f"\n{SEPARATOR}")
     print(f"Here is the {option}d result:")
     print(f"{SEPARATOR}")
@@ -86,7 +86,7 @@ def display_result(result, option):
 
 
 def main():
-    """Main program function."""
+    # Main program function
     # Display logo
     print(LOGO)
     print("\nWelcome to Caesar Cipher Program!")
