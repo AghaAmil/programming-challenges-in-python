@@ -1,11 +1,21 @@
-# pycharm setting file
-.idea
+# IDE and Editor Configuration Files
+.idea/          # PyCharm settings and configuration
+.vscode/        # Visual Studio Code settings
 
-# interpreter file
-.venv
+# Python Virtual Environment
+.venv/          # UV/venv virtual environment directory
+venv/           # Alternative virtual environment name
+env/            # Alternative virtual environment name
 
-# vscode config file
-.vscode
+# Python Compiled Files and Caches
+__pycache__/    # Python bytecode cache directories
+*.pyc           # Compiled Python bytecode files
+*.pyo           # Optimized Python bytecode files
+.ruff_cache/    # Ruff linter cache
 
-# python related files
-.ruff_cache
+# Operating System Files
+.DS_Store       # macOS folder attributes
+.DS_Store?      # macOS folder attributes (alternative)
+._*             # macOS resource forks
+Thumbs.db       # Windows thumbnail cache
+Desktop.ini     # Windows folder configuration
