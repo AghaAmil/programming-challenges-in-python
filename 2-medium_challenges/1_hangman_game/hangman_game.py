@@ -90,19 +90,18 @@ def play_hangman():
 
 def main():
 
-    while True:
-        play_hangman()
+    play_hangman()
 
-        # Ask if the player wants to play again
-        while True:
-            play_again = input("\nDo you want to play again? (yes/no): ").lower().strip()
-            if play_again in ["yes", "y"]:
-                break
-            elif play_again in ["no", "n"]:
-                print("\nThanks for playing Hangman! Goodbye! 👋")
-                return
-            else:
-                print("Please enter 'yes' or 'no'.")
+    # Ask if the player wants to play again
+    while True:
+        play_again = input("\nDo you want to play again? (yes/no): ").lower().strip()
+        if play_again in ["yes", "y"]:
+            break
+        elif play_again in ["no", "n"]:
+            print("\nThanks for playing Hangman! Goodbye! 👋")
+            return
+        else:
+            print("Please enter 'yes' or 'no'.")
 
 
 if __name__ == "__main__":
