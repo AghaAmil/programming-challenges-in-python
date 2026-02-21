@@ -1,3 +1,4 @@
+import os
 import random
 
 from art import LOGO
@@ -19,6 +20,14 @@ CARD_DECK = {
 }
 
 
+def clear_screen():
+    """
+    Clear the terminal screen between rounds.
+    """
+    # 'nt' is for Windows, others are typically Unix-based (Linux, macOS)
+    os.system("cls" if os.name == "nt" else "clear")
+
+
 def random_card_generator():
     """
     Generate a random card deck with its corresponding value
@@ -35,19 +44,17 @@ def deal_card(hand):
     Draw one card and append it to the given hand.
 
     :param hand: List of card labels
-    :return:
-        str: card label
-        int: card value
     """
-    card, value = random_card_generator()
+    card, _ = random_card_generator()
     hand.append(card)
-
-    return card, value
 
 
 def deal_initial_cards(player_hand, dealer_hand):
     """
     Deal two cards to player and dealer to start the game.
+
+    :param player_hand: List of card labels for the player
+    :param dealer_hand: List of card labels for the dealer
     """
     for _ in range(2):
         deal_card(player_hand)
@@ -65,7 +72,7 @@ def calculate_hand_value(hand):
     total_score = sum(CARD_DECK[card] for card in hand)
     aces = hand.count("A")
 
-    if total_score > 21 and aces > 0:
+    while total_score > 21 and aces > 0:
         total_score -= 10
         aces -= 1
     return total_score
@@ -73,21 +80,23 @@ def calculate_hand_value(hand):
 
 def game_result(player_hand, dealer_hand):
     """
-    Check player and dealer hand value and decide the winner
+    Compare player and dealer hand values and decide the winner.
+    Handles Blackjack, bust, tie, and score comparison cases.
 
-    :param player_hand:
-    :param dealer_hand:
+    :param player_hand: List of card labels for the player
+    :param dealer_hand: List of card labels for the dealer
     :return:
+        str: result message indicating the outcome
     """
     player_score = calculate_hand_value(player_hand)
     dealer_score = calculate_hand_value(dealer_hand)
 
-    if player_score == dealer_score:
-        return "It's a tie! 😬"
-    elif player_score == 21:
+    if player_score == 21 and len(player_hand) == 2 and not (dealer_score == 21 and len(dealer_hand) == 2):
         return "Player Win! with a Blackjack 😎💪🏻"
-    elif dealer_score == 21:
+    elif dealer_score == 21 and len(dealer_hand) == 2 and not (player_score == 21 and len(player_hand) == 2):
         return "Player Lose! Dealer has a Blackjack 😱"
+    elif player_score == dealer_score:
+        return "It's a tie! 😬"
     elif player_score > 21:
         return "Player Lose! Player went over 21. 😢"
     elif dealer_score > 21:
@@ -98,53 +107,48 @@ def game_result(player_hand, dealer_hand):
         return "Player Lose! Dealer has higher score 😔"
 
 
-def blackjack_game():
+def play_blackjack():
     """
-    Run the Blackjack game and display the result
-
-    :return:
+    Run a single round of Blackjack. Deals initial cards, handles the
+    player's hit/stand decisions, runs the dealer's turn, and displays
+    the final result.
     """
     player_hand = []
     dealer_hand = []
 
-    player_score = 0
-    dealer_score = 0
-
     print(LOGO)
-    print("=" * 80)
+    print("=" * 70)
 
     # first deal card to player and dealer
     deal_initial_cards(player_hand, dealer_hand)
 
-    while True:
-        player_score = calculate_hand_value(player_hand)
-        dealer_score = calculate_hand_value(dealer_hand)
+    print(f"    Player Current Hand: {player_hand}         Player Score: {calculate_hand_value(player_hand)}")
+    print(f"    Dealer First Card: {dealer_hand[0]}        Dealer Score: {CARD_DECK[dealer_hand[0]]}\n")
 
-        # display initial card dealing
-        print(f"    Player Current Hand: {player_hand}         Player Score: {player_score}")
-        print(f"    Dealer First Card: {dealer_hand[0]}        Dealer Score: {CARD_DECK[dealer_hand[0]]}\n")
+    if calculate_hand_value(player_hand) == 21:
+        print("Lucky Bastard! Your first hand is a Blackjack!")
+    else:
+        while True:
+            request_card = input("Type 'y' to get another card or type 'n' to pass: ").strip().lower()
 
-        if player_score == 21 and dealer_score != 21:
-            print("Lucky Bastard! Your first hand is a Blackjack!")
+            if request_card == "y":
+                deal_card(player_hand)
+                print(f"    Player Current Hand: {player_hand}         Player Score: {calculate_hand_value(player_hand)}\n")
+                if calculate_hand_value(player_hand) > 21:
+                    break
+            elif request_card == "n":
+                break
+            else:
+                print("Invalid input!! Please type 'y' or 'n' explicitly\n")
 
-            break
-
-        request_card = input("Type 'y' to get another card or type 'n' to pass: ").strip().lower()
-
-        if request_card == "y":
-            deal_card(player_hand)
-        elif request_card == "n":
-            break
-        else:
-            print("Invalid input!! Please type 'y' or 'n' explicitly\n")
-
-    while dealer_score < 17:
-        deal_card(dealer_hand)
+    if calculate_hand_value(player_hand) <= 21:
+        while calculate_hand_value(dealer_hand) < 17:
+            deal_card(dealer_hand)
 
     # blank line
     print()
-    print(f"    Player Final Hand: {player_hand}      Player Score: {player_score}")
-    print(f"    Dealer Final Hand: {dealer_hand}      Dealer Score: {dealer_score}")
+    print(f"    Player Final Hand: {player_hand}      Player Score: {calculate_hand_value(player_hand)}")
+    print(f"    Dealer Final Hand: {dealer_hand}      Dealer Score: {calculate_hand_value(dealer_hand)}")
     print(game_result(player_hand, dealer_hand))
 
 
@@ -154,12 +158,15 @@ def main():
 
     :return: Close the program
     """
+    play_blackjack()
+
     while True:
         play_again = input('\nDo you want to play a game of Blackjack? type "y" or "n" : ').strip().lower()
         if play_again == "y":
-            blackjack_game()
+            clear_screen()
+            play_blackjack()
         elif play_again == "n":
-            print("Thank you for playing Blackjack with us!")
+            print("\nThank you for playing Blackjack with us! 🫶🏻")
             return
         else:
             print("Invalid input!! Please type 'y' or 'n' explicitly")
