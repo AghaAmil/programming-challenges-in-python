@@ -13,6 +13,10 @@ __pycache__/
 *.pyo
 .ruff_cache/
 
+# Game Runtime Data
+leaderboard.json
+player_stats.json
+
 # Operating System Files
 .DS_Store
 .DS_Store?
