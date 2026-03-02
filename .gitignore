@@ -1,6 +1,7 @@
 # IDE and Editor Configuration Files
 .idea/
 .vscode/
+.obsidian/
 
 # Python Virtual Environment
 .venv/
