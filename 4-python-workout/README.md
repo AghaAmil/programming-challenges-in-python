@@ -19,3 +19,7 @@ This repository comprises ten chapters, each dedicated to a distinct aspect of P
 8. **Modules and packages:** Writing and using modules in a Python program.
 9. **Objects:** Creating classes, writing methods, using attributes, and understanding inheritance.
 10. **Iterators and generators:** Adding the iterator protocol to classes, writing generator functions, and writing generator comprehensions.
+
+## Getting Started
+
+*explain on how to use the exercises*
