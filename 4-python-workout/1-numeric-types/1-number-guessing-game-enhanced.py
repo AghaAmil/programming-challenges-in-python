@@ -1,3 +1,10 @@
+"""
+
+- Enhanced code structure with dedicated functions
+- Game difficulty is added (Easy: 10 attempts, hard: 5 attempts)
+- Input and error handling
+"""
+
 import random
 
 
