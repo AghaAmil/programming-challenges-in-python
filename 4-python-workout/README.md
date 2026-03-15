@@ -2,7 +2,10 @@
 
 ## Introduction
 
-This course offers 50 exercises from the renowned Python book titled “Python Workout (50 ten-minute exercises)” by Reuven M. Lerner. You can access the author’s materials here: Python Tutor (pythontutor.com) provides an environment for executing code, while GitHub at https://github.com/reuven/python-workout allows you to download the code.
+**Needs to be improved. Explain why I have prepared this.**
+This course offers 50 exercises from the renowned Python book titled “Python Workout (50 ten-minute exercises)”  by Reuven M. Lerner.
+You can access the author’s materials here:
+Python Tutor (https://PythonWorkout.com/) provides an environment for executing code, while GitHub at https://github.com/reuven/python-workout allows you to download the code and solutions to exercises in the code.
 
 > [!NOTE] Note
 > In contrast, my repository offers not only solutions but also a comprehensive collection of Python learning materials, tips, and tricks, as well as step-by-step guides on how to effectively address these challenges.
