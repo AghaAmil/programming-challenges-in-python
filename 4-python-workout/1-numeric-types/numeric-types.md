@@ -67,3 +67,60 @@ Note that the maximum value in the `random.randint` function is inclusive. This 
 > [!NOTE] Note!
 > For the sake of this exercise, we’ll assume that our user will only input valid data, specifically integers. It’s important to note that the int function typically expects a decimal number, which means its argument can only contain digits. If you’re being particularly meticulous, you can use the `str.isdigit` method (http://mng.bz/oPVN) to verify that a string contains only digits. Alternatively, you can catch the `ValueError` exception that will be raised if you attempt to convert something that cannot be converted into an integer using the int function.
 
+## Exercise 2: Summing Numbers
+
+The challenge is to create a `mysum()` function that performs the same task as the built-in `sum()` function. 
+However instead of accepting a single sequence as an argument, it should accept a variable number of arguments. Therefore, while you might call `sum([1, 2, 3])`, you would instead call `mysum(1, 2, 3)` or `mysum(10, 20, 30, 40, 50)`.
+
+> [!NOTE] `sum()` function
+> sum function takes a sequence of numbers and returns their sum. For instance, if you call `sum([1, 2, 3])`, it will return 6. Learn more about it here: http://mng.bz/MdW2.
+> 
+> The built-in `sum` function takes an optional second argument, which we're ignoring here.
+
+> [!TIP] TIP
+> In order to solve this exercise, you need to know about the `splat` operator (asterisk). If you are unfamiliar with it, you can learn more about it in this Python tutorial: http://mng.bz/aR4J
+
+*improve the question - display program output*
+*Write a document for Passing an Arbitrary Number of Arguments*
+
+### Exercise Extension
+
+- The built-in version of sum takes an optional second argument, which is used as the starting point for the summing. (That’s why it takes a list of numbers as its first argument, unlike our `mysum` implementation.) So `sum([1,2,3], 4)` returns `10`, because `1+2+3` is `6`, which would be added to the starting value of `4`. Reimplement your `mysum` function such that it works in this way. If a second argument is no provided, then it should default to `0`. Note that while you can write a function in Python 3 that defines a parameter after args, I’d suggest avoid-ing it and just taking two arguments-a list and an optional starting point.
+- Write a function that takes a list of numbers. It should return the average (i.e.,arithmetic mean) of those numbers.
+- Write a function that takes a list of words (strings). It should return a tuple containing three integers, representing the length of the shortest word, the length of the longest word, and the average word length.
+- Write a function that takes a list of Python objects. Sum the objects that either are integers or can be turned into integers, ignoring the others.
+
+### Solution
+
+#### Passing an Arbitrary Number of Arguments
+
+*mixing positional and arbitrary arguments*
+*using arbitrary keyword arguments*
+
+```python
+def make_pizza(size, *toppings):
+    print(f"Making a {size} inch pizza with the following toppings: ")
+
+    for item in toppings:
+        print(f" - {item}")
+
+
+make_pizza(16, "Mushroom", "Green-Papper", "Beef Steak", "Extra Cheese")
+make_pizza(12, "Garlic", "Chicken", "Mushroom", "Onion")
+```
+
+```python
+def build_profile(name, lastname, age, mobile, **user_profile):
+
+    user_profile["first_name"] = name
+    user_profile["last_name"] = lastname
+    user_profile["user_age"] = age
+    user_profile["contact"] = mobile
+
+    print(user_profile)
+
+
+build_profile("Amirhossein", "Moravveji", 32, "+989124993212")
+```
+
+
