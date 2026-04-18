@@ -5,7 +5,7 @@ description = "Add your description here"
 requires-python = ">=3.14"
 dependencies = [
     "pip>=25.3",
-    "ruff>=0.14.10",
+    "ruff==0.15.10",
 ]
 [tool.ruff]
 line-length = 120
